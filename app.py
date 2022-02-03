@@ -4,17 +4,17 @@ import firebase_config as token # se importa la libreria de firebase_comfig para
 import json # se importa la libreria de json para hacer uso y modificación de estos elementos
 
 urls = (
-    '/login', 'Login',
+    '/login', 'Login',  #ulrs o raices de las diferentes págians html que vamos a utlizar
     '/registrar', 'Registrar',
     '/bienvenida', 'Bienvenido',
 )
-app = web.application(urls, globals())
-render = web.template.render('views')
+app = web.application(urls, globals())#configura las urls en la aplicacion web
+render = web.template.render('views') # configura la carpeta donde estan las vistas (archivos html)
 
 
 class Bienvenido:
     def GET(self):
-        return render.bienvenida()
+        return render.bienvenida() # nos devuleve al render de nuestro html bienvenida
 
 
 class Login:
@@ -29,21 +29,20 @@ class Login:
 
     def POST(self):
         try:
-            firebase = pyrebase.initialize_app(token.firebaseConfig)
-            auth = firebase.auth()
-            formulario = web.input()
-            email = formulario.email
-            password= formulario.password
-            print(email,password) 
-            verificacion_usuario = auth.sign_in_with_email_and_password(email, password)
-            print(verificacion_usuario)
-            return web.seeother("bienvenida")
+            firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+            auth = firebase.auth()  # se inicializa el metodo de autentificación
+            formulario = web.input() # se crea una variable formulario para recibir los datos del login
+            email = formulario.email # se crea una varible donde se guardara los datos ingresados en el formulario
+            password= formulario.password # se crea una varible donde se guardara los datos ingresados en el formulario
+            print(email,password)  # se imprime el email y contraseña para rectificar internamente
+            verificacion_usuario = auth.sign_in_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña con correctas
+            print(verificacion_usuario)  # nos devuelve la verificación de esta
+            return web.seeother("bienvenida") # nos devuelve al html bievenida
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
-            error = formato['error'] # Se obtiene el json de error
-            message = error['message'] # se obtiene el mensaje de error
+            error = formato['error'] # obtiene el json de error
+            message = error['message'] # obtiene el mensaje de error
             print("Error Login.POST: {}".format(message)) # se imprime el message enviado por firebase
-            web.setcookie('localID', None, 3600) # se resetea el localID en la cookie
             return render.login(message) # se muestra nuevamente login mostrando el mensaje de error
 
 class Registrar:
@@ -58,24 +57,23 @@ class Registrar:
 
     def POST(self):
         try:
-            firebase = pyrebase.initialize_app(token.firebaseConfig)
-            auth = firebase.auth()
-            formulario = web.input()
-            email = formulario.email
-            password= formulario.password
-            print(email,password) 
-            usuario_creado = auth.create_user_with_email_and_password(email, password)
-            print(usuario_creado)
-            return web.seeother("login")
+            firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+            auth = firebase.auth()  # se inicializa el metodo de autentificación
+            formulario = web.input() # se crea una variable formulario para recibir los datos del registrar.html
+            email = formulario.email  # se crea una varible donde se guardara los datos ingresados en el formulario
+            password= formulario.password  # se crea una varible donde se guardara los datos ingresados en el formulario
+            print(email,password) # se imprime el email y contraseña para rectificar internamente
+            usuario_creado = auth.create_user_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña son correctas para crear un nuevo usuario
+            print(usuario_creado) # nos devuelve la verificación de esta
+            return web.seeother("login")# nos devuelve el login
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
-            error = formato['error'] # Se obtiene el json de error
+            error = formato['error'] # se obtiene el json de error
             message2 = error['message'] # se obtiene el mensaje de error
             print("Error Login.POST: {}".format(message2)) # se imprime el message enviado por firebase
-            web.setcookie('localID', None, 3600) # se resetea el localID en la cookie
             return render.registrar(message2) # se muestra nuevamente login mostrando el mensaje de error
         
 
 if __name__ == "__main__":
-    web.config.debug = True # Activa o desactiva el modo de repuracion de firebase
+    web.config.debug = True # activa o desactiva el modo de repuracion de firebase
     app.run()
