@@ -6,9 +6,16 @@ import json
 urls = (
     '/login', 'Login',
     '/registrar', 'Registrar',
+    '/bienvenida', 'Bienvenido',
 )
 app = web.application(urls, globals())
 render = web.template.render('views')
+
+
+class Bienvenido:
+    def GET(self):
+        return render.bienvenida()
+
 
 class Login:
     def GET(self):
