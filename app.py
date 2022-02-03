@@ -1,6 +1,7 @@
 import web
 import pyrebase
 import firebase_config as token
+import json
 
 urls = (
     '/login', 'Login',
@@ -36,6 +37,7 @@ class Registrar:
         password= formulario.password
         print(email,password) 
         usuario_creado = auth.create_user_with_email_and_password(email, password)
+         
         print(usuario_creado)
         return render.registrar()
 
