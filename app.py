@@ -43,7 +43,7 @@ class Login:
             error = formato['error'] # obtiene el json de error
             message = error['message'] # obtiene el mensaje de error
             if message == "INVALID_PASSWORD" :
-                return render.login("la contraseña que ingreso no es valida , intente de nuevo ") 
+                return render.login("la contraseña que ingreso no es válida , intente de nuevo ") 
             print("Error Login.POST: {}".format(message)) # se imprime el message enviado por firebase
            # se muestra nuevamente login mostrando el mensaje de error
 
@@ -73,7 +73,7 @@ class Registrar:
             error = formato['error'] # se obtiene el json de error
             message2 = error['message'] # se obtiene el mensaje de error
             if message2 == "EMAIL_EXISTS" :
-                return render.registrar("el correo que quiso ingresar ya esta registrado, porfavor pruebe con otros datos ") 
+                return render.registrar("el correo que quiso ingresar ya está registrado, porfavor pruebe con otros datos ") 
             print("Error Login.POST: {}".format(message2)) # se imprime el message enviado por firebase
         
 
