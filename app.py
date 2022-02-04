@@ -4,7 +4,7 @@ import firebase_config as token # se importa la libreria de firebase_comfig para
 import json # se importa la libreria de json para hacer uso y modificación de estos elementos
 
 urls = (
-    '/login', 'Login',  #ulrs o raices de las diferentes págians html que vamos a utlizar
+    '/login', 'Login',  #ulrs o raices de las diferentes páginas html que vamos a utlizar
     '/registrar', 'Registrar',
     '/bienvenida', 'Bienvenido',
 )
@@ -42,8 +42,10 @@ class Login:
             formato = json.loads(error.args[1]) # Error en formato JSON
             error = formato['error'] # obtiene el json de error
             message = error['message'] # obtiene el mensaje de error
+            if message == "INVALID_PASSWORD" :
+                return render.login("la contraseña que ingreso no es valida , intente de nuevo ") 
             print("Error Login.POST: {}".format(message)) # se imprime el message enviado por firebase
-            return render.login(message) # se muestra nuevamente login mostrando el mensaje de error
+           # se muestra nuevamente login mostrando el mensaje de error
 
 class Registrar:
     def GET(self):
@@ -70,8 +72,9 @@ class Registrar:
             formato = json.loads(error.args[1]) # Error en formato JSON
             error = formato['error'] # se obtiene el json de error
             message2 = error['message'] # se obtiene el mensaje de error
+            if message2 == "EMAIL_EXISTS" :
+                return render.registrar("el correo que quiso ingresar ya esta registrado, porfavor pruebe con otros datos ") 
             print("Error Login.POST: {}".format(message2)) # se imprime el message enviado por firebase
-            return render.registrar(message2) # se muestra nuevamente login mostrando el mensaje de error
         
 
 if __name__ == "__main__":
