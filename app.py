@@ -4,22 +4,30 @@ import firebase_config as token # se importa la libreria de firebase_comfig para
 import json # se importa la libreria de json para hacer uso y modificación de estos elementos
 
 urls = (
-    '/login', 'Login',  #ulrs o raices de las diferentes páginas html que vamos a utlizar
+    '/', 'Login',  #ulrs o raices de las diferentes páginas html que vamos a utlizar
     '/registrar', 'Registrar',
     '/bienvenida', 'Bienvenido',
+    '/logout', 'Logout',
 )
 app = web.application(urls, globals())#configura las urls en la aplicacion web
 render = web.template.render('views') # configura la carpeta donde estan las vistas (archivos html)
 
+class Logout:
+    def GET(self):
+        web.setcookie('localid', "") # configuramos la cookie para que cuando el usuario presione el logout , la cookie cambie a un valor vacio asi limitando su acesso si es que quisieran entrar otra vez a la raiz
+        return web.seeother("/")  # nos devuelve el login
+
 
 class Bienvenido:
     def GET(self):
-        return render.bienvenida() # nos devuleve al render de nuestro html bienvenida
-
-
+        if ( web.cookies().get('localid')) == "": # se pone una condicional si localid es igual a vacio que esta nos vuelva a mandar a la pagina login
+            return web.seeother("/")
+        else :
+            return render.bienvenida() # nos devuelve el render bienvendia
+            
 class Login:
     def GET(self):
-        try: # prueba el  codigo
+        try: # prueba el codigo
             message = None # se crear una variable para el mensaje de error
             return render.login(message) # renderiza la pagina login.html con el mensaje
         except Exception as error: # atrapa el error a arreglar
@@ -36,7 +44,8 @@ class Login:
             password= formulario.password # se crea una varible donde se guardara los datos ingresados en el formulario
             print(email,password)  # se imprime el email y contraseña para rectificar internamente
             verificacion_usuario = auth.sign_in_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña con correctas
-            print(verificacion_usuario)  # nos devuelve la verificación de esta
+            local_id = ( verificacion_usuario ['localId']) # se crea la varible donde se almacenara el localid
+            web.setcookie('localid', local_id) # confguramos nuestra cookie con el nombre y el valor 
             return web.seeother("bienvenida") # nos devuelve al html bievenida
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
