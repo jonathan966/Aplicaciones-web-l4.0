@@ -14,7 +14,7 @@ render = web.template.render('views') # configura la carpeta donde estan las vis
 
 class Logout:
     def GET(self):
-        web.setcookie('localid', "") # configuramos la cookie para que cuando el usuario presione el logout , la cookie cambie a un valor vacio asi limitando su acesso si es que quisieran entrar otra vez a la raiz
+        web.setcookie('localid', None) # configuramos la cookie para que cuando el usuario presione el logout , la cookie cambie a un valor vacio asi limitando su acesso si es que quisieran entrar otra vez a la raiz
         return web.seeother("/")  # nos devuelve el login
 
 
