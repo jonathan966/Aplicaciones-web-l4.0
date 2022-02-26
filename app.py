@@ -6,11 +6,29 @@ import json # se importa la libreria de json para hacer uso y modificación de e
 urls = (
     '/', 'Login',  #ulrs o raices de las diferentes páginas html que vamos a utlizar
     '/registrar', 'Registrar',
+    '/user_list', 'Userlist',
+    '/user_view/(.*)', 'Userview',
+    '/update/(.*)', 'Update',
     '/bienvenida', 'Bienvenido',
     '/logout', 'Logout',
+    '/recuperar', 'Recuperar',
+    
 )
 app = web.application(urls, globals())#configura las urls en la aplicacion web
-render = web.template.render('views') # configura la carpeta donde estan las vistas (archivos html)
+render = web.template.render('views', base='layout') # configura la carpeta donde estan las vistas (archivos html)
+
+class Recuperar:
+    def GET(self):
+        return render.recuperar()
+
+    def POST(self):
+        firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+        auth = firebase.auth() # se inicializa el metodo de autentificación
+        formulario = web.input() # se crea una variable formulario para recibir los datos del login
+        email = formulario.email # se crea una varible donde se guardara los datos ingresados en el formulario
+        result = auth.send_password_reset_email(email)  # se crea una varible donde se pondra resetar la contraseña
+        return web.seeother("/") # nos devuelve al html bievenida
+      
 
 class Logout:
     def GET(self):
@@ -24,7 +42,62 @@ class Bienvenido:
             return web.seeother("/")
         else :
             return render.bienvenida() # nos devuelve el render bienvendia
-            
+
+
+class Userview:
+    def GET(self, localId):
+        try: # prueba el codigo
+            firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+            db = firebase.database()  # se inicializa el metodo de base de datos en firebase
+            user = db.child(" usuario_creado ").child(localId).get()
+            return render.user_view(user)
+        except Exception as error: # atrapa el error a arreglar
+            message = "Error en el sistema" # se alamacena un mensaje de error
+            print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio
+
+
+class Update:
+    def GET(self, localId):
+        try: # prueba el codigo
+            firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+            db = firebase.database()  # se inicializa el metodo de base de datos en firebase
+            users = db.child(" usuario_creado ").child(localId).get()
+            return render.update(users)
+        except Exception as error: # atrapa el error a arreglar
+            message = "Error en el sistema" # se alamacena un mensaje de error
+            print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio
+
+    def POST(self, localId):
+       firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+       db = firebase.database()  # se inicializa el metodo de base de datos en firebase
+       formulario = web.input() # se crea una variable formulario para recibir los datos del registrar.html
+       nombre = formulario.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
+       telefono = formulario.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
+       email = formulario.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
+       level = formulario.level
+       localid = formulario.localid
+       data = { "nombre": nombre,  # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
+        "telefono" : telefono,
+        "email" : email,
+        "level" : level
+       }
+       results = db.child("usuario_creado").child(localid).update({data})
+       return web.seeother("update")# nos devuelve el login
+
+class Userlist:
+    def GET(self):
+        try: # prueba el codigo
+            firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+            db = firebase.database()  # se inicializa el metodo de base de datos en firebase
+            users = db.child(" usuario_creado ").get()
+            return render.user_list(users)
+        except Exception as error: # atrapa el error a arreglar
+            message = "Error en el sistema" # se alamacena un mensaje de error
+            print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio
+    
+
+
+
 class Login:
     def GET(self):
         try: # prueba el codigo
@@ -70,13 +143,20 @@ class Registrar:
         try:
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             auth = firebase.auth()  # se inicializa el metodo de autentificación
+            db = firebase.database()  # se inicializa el metodo de base de datos en firebase
             formulario = web.input() # se crea una variable formulario para recibir los datos del registrar.html
-            email = formulario.email  # se crea una varible donde se guardara los datos ingresados en el formulario
-            password= formulario.password  # se crea una varible donde se guardara los datos ingresados en el formulario
-            print(email,password) # se imprime el email y contraseña para rectificar internamente
+            nombre = formulario.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
+            telefono = formulario.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
+            email = formulario.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
+            password= formulario.password  # se crea la variable password donde se guardara los datos ingresados en el formulario
             usuario_creado = auth.create_user_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña son correctas para crear un nuevo usuario
-            print(usuario_creado) # nos devuelve la verificación de esta
-            return web.seeother("login")# nos devuelve el login
+            print("localid :" ,usuario_creado ['localId'] ) # se imprimeel localid
+            data = { "nombre": nombre,  # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
+                "telefono" : telefono,
+                "email" : email
+            }
+            results = db.child(" usuario_creado ").child(usuario_creado ['localId'] ).set(data) # nos dara la creacion de un hijo en firebase
+            return web.seeother("/")# nos devuelve el login
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
             error = formato['error'] # se obtiene el json de error

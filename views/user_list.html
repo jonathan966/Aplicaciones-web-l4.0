@@ -1,0 +1,17 @@
+$def with(users)
+
+<table class="table">
+   
+    <thead>
+      <td>nombre</td>
+      <td>email</td>
+      <td>update</td>
+     </thead>
+
+    $for user in users:
+        <tr>
+          <td><a href= "/user_view/$user.key()"> $user.val().get("nombre")</a></td>
+          <td>$user.val().get("email")</td>
+          <td><a href= "/update/$user.key()"> update </a></td>
+        </tr>
+</table>
