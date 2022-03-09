@@ -15,7 +15,9 @@ urls = (
     
 )
 app = web.application(urls, globals())#configura las urls en la aplicacion web
+wsgiapp = app.wsgifunc()
 render = web.template.render('views', base='layout') # configura la carpeta donde estan las vistas (archivos html)
+
 
 class Recuperar:
     def GET(self):
@@ -61,8 +63,8 @@ class Update:
         try: # prueba el codigo
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
-            users = db.child(" usuario_creado ").child(localId).get()
-            return render.update(users)
+            user = db.child(" usuario_creado ").child(localId).get()
+            return render.update(user)
         except Exception as error: # atrapa el error a arreglar
             message = "Error en el sistema" # se alamacena un mensaje de error
             print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio
@@ -70,12 +72,12 @@ class Update:
     def POST(self, localId):
        firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
        db = firebase.database()  # se inicializa el metodo de base de datos en firebase
-       formulario = web.input() # se crea una variable formulario para recibir los datos del registrar.html
-       nombre = formulario.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
-       telefono = formulario.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
-       email = formulario.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
-       level = formulario.level
-       localid = formulario.localid
+       formulario1 = web.input() # se crea una variable formulario para recibir los datos del registrar.html
+       nombre = formulario1.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
+       telefono = formulario1.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
+       email = formulario1.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
+       level = formulario1.level
+       localid = formulario1.localid
        data = { "nombre": nombre,  # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
         "telefono" : telefono,
         "email" : email,
