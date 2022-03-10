@@ -73,17 +73,19 @@ class Update:
        firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
        db = firebase.database()  # se inicializa el metodo de base de datos en firebase
        formulario1 = web.input() # se crea una variable formulario para recibir los datos del registrar.html
+       print(formulario1)
        nombre = formulario1.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
        telefono = formulario1.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
        email = formulario1.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
        level = formulario1.level
-       localid = formulario1.localid
-       data = { "nombre": nombre,  # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
+       localid = formulario1.localid 
+       # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
+       data = { "nombre": nombre,  
         "telefono" : telefono,
         "email" : email,
         "level" : level
        }
-       results = db.child("usuario_creado").child(localid).update({data})
+       results = db.child("usuario_creado").child(localid).update(data)
        return web.seeother("update")# nos devuelve el login
 
 class Userlist:
@@ -91,7 +93,7 @@ class Userlist:
         try: # prueba el codigo
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
-            users = db.child(" usuario_creado ").get()
+            users = db.child("usuario_creado").get()
             return render.user_list(users)
         except Exception as error: # atrapa el error a arreglar
             message = "Error en el sistema" # se alamacena un mensaje de error
@@ -157,7 +159,7 @@ class Registrar:
                 "telefono" : telefono,
                 "email" : email
             }
-            results = db.child(" usuario_creado ").child(usuario_creado ['localId'] ).set(data) # nos dara la creacion de un hijo en firebase
+            results = db.child("usuario_creado").child(usuario_creado ['localId'] ).set(data) # nos dara la creacion de un hijo en firebase
             return web.seeother("/")# nos devuelve el login
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
