@@ -9,6 +9,7 @@ urls = (
     '/registrar','mvc.controllers.public.registrar.Registrar',
     '/user_list', 'mvc.controllers.public.userlist.Userlist',
     '/user_view/(.*)', 'mvc.controllers.public.userview.Userview',
+    '/user_list_admin', 'mvc.controllers.admin.user_list_admin.User_list_admin',
     '/update/(.*)','mvc.controllers.public.update.Update',
     '/index','mvc.controllers.public.bienvenida.Bienvenida',
     '/bienvenida_operador','mvc.controllers.operador.bienvenida.Bienvenida',
@@ -16,6 +17,7 @@ urls = (
     '/logout', 'mvc.controllers.public.logout.Logout',
     '/recuperar', 'mvc.controllers.public.recuperar.Recuperar',
     '/dashboard','mvc.controllers.operador.dashboard.Dashboard',
+    '/bienvenida_admin','mvc.controllers.admin.bienvenida_admin.Bienvenida_admin',
     
 )
 app = web.application(urls, globals())#configura las urls en la aplicacion web
@@ -28,5 +30,5 @@ wsgiapp = app.wsgifunc()
 
 
 if __name__ == "__main__":
-    web.config.debug = False # activa o desactiva el modo de repuracion de firebase
+    web.config.debug = True # activa o desactiva el modo de repuracion de firebase
     app.run()
