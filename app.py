@@ -10,6 +10,7 @@ urls = (
     '/user_list', 'mvc.controllers.public.userlist.Userlist',
     '/user_view/(.*)', 'mvc.controllers.public.userview.Userview',
     '/user_list_admin', 'mvc.controllers.admin.user_list_admin.User_list_admin',
+    '/add_users_admin', 'mvc.controllers.admin.add_users_admin.Add_users_admin',
     '/update/(.*)','mvc.controllers.public.update.Update',
     '/index','mvc.controllers.public.bienvenida.Bienvenida',
     '/bienvenida_operador','mvc.controllers.operador.bienvenida.Bienvenida',
