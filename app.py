@@ -12,13 +12,13 @@ urls = (
     '/update/(.*)','mvc.controllers.public.update.Update',
     '/bienvenida','mvc.controllers.public.bienvenida.Bienvenida',
     '/index','mvc.controllers.public.bienvenida.Bienvenida',
-    '/user_list_admin', 'mvc.controllers.admin.user_list_admin.User_list_admin',
-    '/add_users_admin', 'mvc.controllers.admin.add_users_admin.Add_users_admin',
-    '/bienvenida_admin','mvc.controllers.admin.bienvenida_admin.Bienvenida_admin',
-    '/dashboard_admin','mvc.controllers.admin.dashboard_admin.Dashboard_admin',
-    '/update_users_admin','mvc.controllers.admin.update_users_admin.Update_users_admin',
-    '/user_view_admin','mvc.controllers.admin.user_view_admin.User_view_admin',
-    '/on_off_count_admin','mvc.controllers.admin.on_off_count_admin.On_off_count_admin',
+    '/user_list_admin', 'mvc.controllers.admin.user_list_admin.User_list_admin',#true
+    '/add_users_admin', 'mvc.controllers.admin.add_users_admin.Add_users_admin',#true
+    '/bienvenida_admin','mvc.controllers.admin.bienvenida_admin.Bienvenida_admin',#true
+    '/dashboard_admin','mvc.controllers.admin.dashboard_admin.Dashboard_admin', #true
+    '/update_users_admin/(.*)','mvc.controllers.admin.update_users_admin.Update_users_admin',#false
+    '/user_view_admin/(.*)','mvc.controllers.admin.user_view_admin.User_view_admin',#fasle
+    '/on_off_count_admin/(.*)','mvc.controllers.admin.on_off_count_admin.On_off_count_admin',#false
     '/bienvenida_operador','mvc.controllers.operador.bienvenida.Bienvenida',
     '/dashboard','mvc.controllers.operador.dashboard.Dashboard',
     '/logout', 'mvc.controllers.public.logout.Logout',

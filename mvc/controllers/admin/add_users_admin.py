@@ -10,7 +10,7 @@ class Add_users_admin:
     def GET(self):
         try: # prueba el  codigo
             message2 = None # se crear una variable para el mensaje de error
-            return render.registrar(message2) # renderiza la pagina login.html con el mensaje
+            return render.add_users_admin(message2) # renderiza la pagina login.html con el mensaje
         except Exception as error: # atrapa el error a arreglar
             message2 = "Error en el sistema" # se alamacena un mensaje de error
             print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio

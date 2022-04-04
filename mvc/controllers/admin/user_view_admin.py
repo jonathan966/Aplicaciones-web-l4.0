@@ -18,3 +18,4 @@ class User_view_admin:
         except Exception as error: # atrapa el error a arreglar
             message = "Error en el sistema" # se alamacena un mensaje de error
             print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio
+
