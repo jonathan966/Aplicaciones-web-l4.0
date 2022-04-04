@@ -1,0 +1,28 @@
+$def with(user)
+
+<form  method="POST" >
+    <div class="form-group">
+        <label for="name">nombre:</label>
+        <input type="text"   name="nombre"  class="form-control" id="nombre"  >
+    </div>
+
+    <div class="form-group">
+        <label for="name">email:</label>
+        <input type="text"   class="form-control" id="email" name="email"  >
+    </div>
+
+    <div class="form-group">
+        <label for="name">telefono:</label>
+        <input type="text"  name="telefono"  class="form-control" id="telefono"  >
+    </div>
+
+    <div class="form-group">
+        <label for="name">level:</label>
+        <input type="text"  name="level" class="form-control" id="level"  >
+    </div>
+    
+    <input  name="localid" type="hidden" value= "$user.key()">
+
+    <input type="submit" value="Actulizar "><br>
+
+</form>

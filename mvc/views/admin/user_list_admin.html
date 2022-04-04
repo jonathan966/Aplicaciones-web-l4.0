@@ -10,9 +10,9 @@ $def with(users)
 
     $for user in users:
         <tr>
-          <td><a href= "/user_view/$user.key()"> $user.val().get("nombre")</a></td>
+          <td><a href= "/user_view_admin/$user.key()"> $user.val().get("nombre")</a></td>
           <td>$user.val().get("email")</td>
-          <td><a href= "/update/$user.key()"> update </a></td>
-          <td><a href= "/update/$user.key()"> on/offCount </a></td>
+          <td><a href= "/update_users_admin/$user.key()"> update </a></td>
+          <td><a href= "/on_off_count_admin/$user.key()"> on/offCount </a></td>
         </tr>
 </table>
