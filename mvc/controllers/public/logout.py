@@ -10,5 +10,5 @@ render = web.template.render("mvc/views/public/",base="layout")
 
 class Logout:
     def GET(self):
-        web.setcookie('localid', None) # configuramos la cookie para que cuando el usuario presione el logout , la cookie cambie a un valor vacio asi limitando su acesso si es que quisieran entrar otra vez a la raiz
-        return web.seeother("/")  # nos devuelve el login
+        web.setcookie('localid',"") # configuramos la cookie para que cuando el usuario presione el logout , la cookie cambie a un valor vacio asi limitando su acesso si es que quisieran entrar otra vez a la raiz
+        return web.seeother("/login")  # nos devuelve el login

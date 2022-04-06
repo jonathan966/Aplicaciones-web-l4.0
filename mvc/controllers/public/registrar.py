@@ -2,7 +2,7 @@ import web # se importa la libreria de web.py para hacer sus del framework
 import pyrebase # se importa la libreria de firebase para hacer uso de la fire base creada de google
 import firebase_config as token # se importa la libreria de firebase_comfig para hacer uso de nuestro token de fire base
 import json # se importa la libreria de json para hacer uso y modificación de estos elementos
-
+from pymongo import MongoClient
 
 render = web.template.render("mvc/views/public/",base="layout")
 
@@ -33,7 +33,16 @@ class Registrar:
                 "email" : email
             }
             results = db.child("usuario_creado").child(usuario_creado ['localId'] ).set(data) # nos dara la creacion de un hijo en firebase
-            return web.seeother("/")# nos devuelve el login
+            client = MongoClient("mongodb+srv://jonathan:Holamundo1234@cluster0.7btwq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+            db = client["usuario"]
+            col = db['usuarios']
+            print("conectando con mongo" )
+            col.insert_one({
+            "nombre":"jonathan",
+            "correo":"jonathan@gmail.com",
+            "telefono":"7751145778",
+            "password":"holamundo" })
+            return web.seeother("/login")# nos devuelve el login
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
             error = formato['error'] # se obtiene el json de error

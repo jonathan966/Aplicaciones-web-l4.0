@@ -11,7 +11,7 @@ render = web.template.render("mvc/views/public/",base="layout")
 class Bienvenida:
     def GET(self):
         if ( web.cookies().get('localid')) == "": # se pone una condicional si localid es igual a vacio que esta nos vuelva a mandar a la pagina login
-            return web.seeother("/")
+            return web.seeother("/login")
         else :
             return render.bienvenida() # nos devuelve el render bienvendia
 
