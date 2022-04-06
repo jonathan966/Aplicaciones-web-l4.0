@@ -8,7 +8,7 @@ import json # se importa la libreria de json para hacer uso y modificación de e
 render = web.template.render("mvc/views/admin/",base="layout_user_list_admin")
 
 class User_list_admin:
-    def GET(self):
+    def GET(self):   
         try: # prueba el codigo
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase

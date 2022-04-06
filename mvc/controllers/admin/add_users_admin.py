@@ -7,7 +7,7 @@ import json # se importa la libreria de json para hacer uso y modificación de e
 render = web.template.render("mvc/views/admin",base="layout_add_users_admin")
 
 class Add_users_admin:
-    def GET(self):
+    def GET(self): 
         try: # prueba el  codigo
             message2 = None # se crear una variable para el mensaje de error
             return render.add_users_admin(message2) # renderiza la pagina login.html con el mensaje

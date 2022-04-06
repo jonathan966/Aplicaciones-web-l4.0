@@ -10,9 +10,14 @@ render = web.template.render("mvc/views/admin/",base="layout_bienvenida_admin")
 class Bienvenida_admin:
     def GET(self):
         if ( web.cookies().get('localid')) == "": # se pone una condicional si localid es igual a vacio que esta nos vuelva a mandar a la pagina login
-            return web.seeother("/")
+            return web.seeother("/index")
         else :
             return render.bienvenida_admin() # nos devuelve el render bienvendia
+
+
+
+
+
 
 
 

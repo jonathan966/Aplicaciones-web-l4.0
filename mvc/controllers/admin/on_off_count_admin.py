@@ -11,7 +11,7 @@ render = web.template.render("mvc/views/admin/",base="layout_on_off_count_admin"
 
 
 class On_off_count_admin:
-    def GET(self, localId):
+    def GET(self, localId): 
         try: # prueba el codigo
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
