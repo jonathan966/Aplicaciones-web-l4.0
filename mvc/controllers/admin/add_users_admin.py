@@ -33,7 +33,7 @@ class Add_users_admin:
                 "email" : email
             }
             results = db.child("usuario_creado").child(usuario_creado ['localId'] ).set(data) # nos dara la creacion de un hijo en firebase
-            return web.seeother("/")# nos devuelve el login
+            return web.seeother("/user_list_admin")# nos devuelve el login
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
             error = formato['error'] # se obtiene el json de error
