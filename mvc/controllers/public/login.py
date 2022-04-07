@@ -21,7 +21,9 @@ class Login:
 
     def POST(self):
         try:
+    
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
+            db = firebase.database()  # se inicializa el metodo de base de datos en firebase
             auth = firebase.auth()  # se inicializa el metodo de autentificación
             formulario = web.input() # se crea una variable formulario para recibir los datos del login
             email = formulario.email # se crea una varible donde se guardara los datos ingresados en el formulario
@@ -30,7 +32,8 @@ class Login:
             verificacion_usuario = auth.sign_in_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña con correctas
             local_id = ( verificacion_usuario ['localId']) # se crea la varible donde se almacenara el localid
             web.setcookie('localid', local_id) # confguramos nuestra cookie con el nombre y el valor 
-            
+            user = db.child("usuario_creado").child(local_id).get()
+            print(user.val())
             return web.seeother("bienvenida") # nos devuelve al html bievenida
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
