@@ -21,7 +21,6 @@ class Login:
 
     def POST(self):
         try:
-    
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
             auth = firebase.auth()  # se inicializa el metodo de autentificación
