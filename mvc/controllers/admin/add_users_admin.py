@@ -25,12 +25,14 @@ class Add_users_admin:
             nombre = formulario.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
             telefono = formulario.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
             email = formulario.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
+            level= formulario.level 
             password= formulario.password  # se crea la variable password donde se guardara los datos ingresados en el formulario
             usuario_creado = auth.create_user_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña son correctas para crear un nuevo usuario
             print("localid :" ,usuario_creado ['localId'] ) # se imprimeel localid
             data = { "nombre": nombre,  # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
                 "telefono" : telefono,
-                "email" : email
+                "email" : email,
+                "level" : level
             }
             results = db.child("usuario_creado").child(usuario_creado ['localId'] ).set(data) # nos dara la creacion de un hijo en firebase
             return web.seeother("/user_list_admin")# nos devuelve el login

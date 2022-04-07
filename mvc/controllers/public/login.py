@@ -31,9 +31,14 @@ class Login:
             verificacion_usuario = auth.sign_in_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña con correctas
             local_id = ( verificacion_usuario ['localId']) # se crea la varible donde se almacenara el localid
             web.setcookie('localid', local_id) # confguramos nuestra cookie con el nombre y el valor 
-            user = db.child("usuario_creado").child(local_id).get()
-            print(user.val())
-            return web.seeother("bienvenida") # nos devuelve al html bievenida
+            users = db.child("usuario_creado").child(local_id).get()
+            print(users.val())
+            level = users.val().get('level')
+            print("level",level)
+            if (level) == "admin": 
+             return web.seeother("/bienvenida_admin") # nos devuelve el render bienvendia
+            elif (level) == "operador":
+                return web.seeother("/bienvenida_operador") # nos devuelve el render bienvendia
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON
             error = formato['error'] # obtiene el json de error
