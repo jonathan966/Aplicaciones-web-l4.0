@@ -2,32 +2,26 @@ $def with (message)
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Inicio de sesión</title>
 
     </head>
     <body>
         $message
         <center>
-         <h1 style="font-size:700%;">Login</h1>
+         <h1 style="font-size:500%;">Inicio de sesión</h1>
         </center>
         <br>
         <center>
           <form method="POST" >
-            <div class="row mb-3">
-                <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                  <input type="email" class="form-control" id="colFormLabel" placeholder="col-form-label">
-                </div>
-            </div>
-            <p>Email :</p>
-            <input type="email" name="email" id="email"><br>
-            <p>contraseña :</p>
-            <input type="password" name="password" id="password"><br>
+            <p style="font-size:150%;">Email :</p>
+            <input type="email" name="email" id="email"  style="font-size:150%;"><br>
             <br>
-            <input type="submit" value="Login"><br>
+            <p style="font-size:150%;">contraseña :</p>
+            <input type="password" name="password" id="password" style="font-size:150%;"><br>
+            <br>
+            <input type="submit" value="Login"  style="font-size:150%;"><br>
           </form>
           <br>
-          <a href="/registrar" style="font-size:200%;">Sing up</a><br>
           <br>
           <a href="/recuperar" style="font-size:200%;" > Rerecuperar contraseña</a>
          

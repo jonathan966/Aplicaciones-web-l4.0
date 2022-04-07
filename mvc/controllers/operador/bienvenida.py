@@ -5,7 +5,7 @@ import web # se importa la libreria de web.py para hacer sus del framework
 
 
 
-render = web.template.render("mvc/views/operador/",base="layout")
+render = web.template.render("mvc/views/operador/",base="bienvenida_ope_layout")
 
 
 class Bienvenida:

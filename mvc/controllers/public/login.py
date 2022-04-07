@@ -30,6 +30,7 @@ class Login:
             verificacion_usuario = auth.sign_in_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña con correctas
             local_id = ( verificacion_usuario ['localId']) # se crea la varible donde se almacenara el localid
             web.setcookie('localid', local_id) # confguramos nuestra cookie con el nombre y el valor 
+            
             return web.seeother("bienvenida") # nos devuelve al html bievenida
         except Exception as error: # atrapa el error a arreglar
             formato = json.loads(error.args[1]) # Error en formato JSON

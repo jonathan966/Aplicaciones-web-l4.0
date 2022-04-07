@@ -2,17 +2,17 @@ $def with(users)
 
 <table class="table">
     <thead>
-      <td>nombre</td>
-      <td>email</td>
-      <td>update</td>
-      <td>on/offCount</td>
+      <td>Nombre del usuario</td>
+      <td>Email</td>
+      <td>Actulizar usuario</td>
+      <td>On/offCount</td>
      </thead>
 
     $for user in users:
         <tr>
           <td><a href= "/user_view_admin/$user.key()"> $user.val().get("nombre")</a></td>
           <td>$user.val().get("email")</td>
-          <td><a href= "/update_users_admin/$user.key()"> update </a></td>
+          <td><a href= "/update_users_admin/$user.key()"> Actulizar usuario </a></td>
           <td><a href= "/on_off_count_admin/$user.key()"> on/offCount </a></td>
         </tr>
 </table>
