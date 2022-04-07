@@ -17,7 +17,6 @@ class Update_users_admin:
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
             user = db.child("usuario_creado").child(localId).get()
-            print(user.val())
             return render.update_users_admin(user)
         except Exception as error: # atrapa el error a arreglar
             message = "Error en el sistema" # se alamacena un mensaje de error
@@ -40,5 +39,4 @@ class Update_users_admin:
         "level" : level
        }
        results = db.child("usuario_creado").child(localid).update(data)
-       print("results",results)
        return web.seeother("/user_list_admin")

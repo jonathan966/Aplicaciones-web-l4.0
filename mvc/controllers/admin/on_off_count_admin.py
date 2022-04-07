@@ -16,7 +16,6 @@ class On_off_count_admin:
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
             user = db.child("usuario_creado").child(localId).get()
-            print(user.val())
             return render.on_off_count_admin(user)
         except Exception as error: # atrapa el error a arreglar
             message = "Error en el sistema" # se alamacena un mensaje de error
@@ -28,12 +27,11 @@ class On_off_count_admin:
        formulario1 = web.input() # se crea una variable formulario para recibir los datos del registrar.html
        print(formulario1)
        nombre = formulario1.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
-       telefono = formulario1.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
+       email = formulario1.email
        estado = formulario1.estado
        data = { "nombre": nombre,  
-        "telefono" : telefono,
         "email" : email,
-        "level" : level
+        "estado" : estado
        }
-       results = db.child("usuario_creado").child(localid).update(data)
-       return web.seeother("update")
+       results = db.child("usuario_creado").child(localId).update(data)
+       return web.seeother("/user_list_admin")
