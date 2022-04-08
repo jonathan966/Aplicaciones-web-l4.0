@@ -6,12 +6,6 @@ import json # se importa la libreria de json para hacer uso y modificación de e
 urls = (
     '/', 'mvc.controllers.public.index.Index',  #ulrs o raices de las diferentes páginas html que vamos a utlizar
     '/login', 'mvc.controllers.public.login.Login',
-    '/registrar','mvc.controllers.public.registrar.Registrar',
-    '/user_list', 'mvc.controllers.public.userlist.Userlist',
-    '/user_view/(.*)', 'mvc.controllers.public.userview.Userview',
-    '/update/(.*)','mvc.controllers.public.update.Update',
-    '/bienvenida','mvc.controllers.public.bienvenida.Bienvenida',
-    '/index','mvc.controllers.public.bienvenida.Bienvenida',
     '/user_list_admin', 'mvc.controllers.admin.user_list_admin.User_list_admin',#true
     '/add_users_admin', 'mvc.controllers.admin.add_users_admin.Add_users_admin',#true
     '/bienvenida_admin','mvc.controllers.admin.bienvenida_admin.Bienvenida_admin',#true
@@ -22,9 +16,7 @@ urls = (
     '/bienvenida_operador','mvc.controllers.operador.bienvenida.Bienvenida',
     '/dashboard','mvc.controllers.operador.dashboard.Dashboard',
     '/logout', 'mvc.controllers.public.logout.Logout',
-    '/recuperar', 'mvc.controllers.public.recuperar.Recuperar',
-    
-    
+    '/recuperar', 'mvc.controllers.public.recuperar.Recuperar',   
 )
 app = web.application(urls, globals())#configura las urls en la aplicacion web
 wsgiapp = app.wsgifunc()
