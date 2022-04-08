@@ -30,13 +30,13 @@ class Update_users_admin:
        nombre = formulario1.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
        telefono = formulario1.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
        email = formulario1.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
-       level = formulario1.level
-       localid = formulario1.localid 
+       level = formulario1.level # se crea la variable level donde se guardara los datos ingresados en el formulario
+       localid = formulario1.localid  # se crea la variable localid donde se guardara los datos ingresados en el formulario
        # se hace uso de la base de datos de fire base donde se mostraran los soguiientes campos
        data = { "nombre": nombre,  
         "telefono" : telefono,
         "email" : email,
         "level" : level
        }
-       results = db.child("usuario_creado").child(localid).update(data)
+       results = db.child("usuario_creado").child(localid).update(data) # se hace utilización de funcion la base en firebase para actualizar en este caso
        return web.seeother("/user_list_admin")

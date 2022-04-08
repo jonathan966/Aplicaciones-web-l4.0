@@ -25,7 +25,7 @@ class Add_users_admin:
             nombre = formulario.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
             telefono = formulario.telefono  # se crea la variable telefono donde se guardara los datos ingresados en el formulario
             email = formulario.email  # se crea la variable email donde se guardara los datos ingresados en el formulario
-            level= formulario.level 
+            level= formulario.level # se crea la variable level donde se guardara los datos ingresados en el formulario
             password= formulario.password  # se crea la variable password donde se guardara los datos ingresados en el formulario
             usuario_creado = auth.create_user_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña son correctas para crear un nuevo usuario
             print("localid :" ,usuario_creado ['localId'] ) # se imprimeel localid

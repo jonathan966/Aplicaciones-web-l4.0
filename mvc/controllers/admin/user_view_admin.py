@@ -13,8 +13,8 @@ class User_view_admin:
         try: # prueba el codigo
             firebase = pyrebase.initialize_app(token.firebaseConfig) # se inicializa la configuración del fire base
             db = firebase.database()  # se inicializa el metodo de base de datos en firebase
-            user = db.child("usuario_creado").child(localId).get()
-            return render.user_view_admin(user)
+            user = db.child("usuario_creado").child(localId).get()  # se crea la variable email donde se guardara los datos ingresados en el formulario
+            return render.user_view_admin(user) # se renderizara la pagina con la variable antes creada que es localid
         except Exception as error: # atrapa el error a arreglar
             message = "Error en el sistema" # se alamacena un mensaje de error
             print("Error Login.GET: {}".format(error)) # se imprime el error que ocurrio

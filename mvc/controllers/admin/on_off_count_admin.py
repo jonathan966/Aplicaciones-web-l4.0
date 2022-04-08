@@ -27,13 +27,13 @@ class On_off_count_admin:
        formulario1 = web.input() # se crea una variable formulario para recibir los datos del registrar.html
        print(formulario1)
        nombre = formulario1.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
-       level = formulario1.level
-       email = formulario1.email
-       estado = formulario1.estado
+       level = formulario1.level # se crea la variable level donde se guardara los datos ingresados en el formulario
+       email = formulario1.email # se crea la variable email donde se guardara los datos ingresados en el formulario
+       estado = formulario1.estado # se crea la variable estado donde se guardara los datos ingresados en el formulario
        data = { "nombre": nombre,  
         "email" : email,
         "level" : level,
         "estado" : estado
        }
-       results = db.child("usuario_creado").child(localId).update(data)
+       results = db.child("usuario_creado").child(localId).update(data)# se hace utilización de funcion la base en firebase para actualizar en este caso
        return web.seeother("/user_list_admin")

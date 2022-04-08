@@ -31,16 +31,13 @@ class Login:
             verificacion_usuario = auth.sign_in_with_email_and_password(email, password) # se crea una varible donde se verificara si el email y la contraseña con correctas
             local_id = ( verificacion_usuario ['localId']) # se crea la varible donde se almacenara el localid
             web.setcookie('localid', local_id) # confguramos nuestra cookie con el nombre y el valor 
-            users = db.child("usuario_creado").child(local_id).get()
-            print(users.val())
-            estado = users.val().get('estado')
-            level = users.val().get('level')
-            print("level",level)
-            print("estado",estado)
-            if (level) == "admin": 
-             return web.seeother("/bienvenida_admin") # nos devuelve el render bienvendia
+            users = db.child("usuario_creado").child(local_id).get() #utilización de base de datos para obtener el local id
+            estado = users.val().get('estado') #creación de variable que obtendra el valor de estado
+            level = users.val().get('level')#creación de variable que obtendra el valor de level
+            if (level) == "admin": # creacion de condicional para cambiar de pagina segun el nivel
+             return web.seeother("/bienvenida_admin") 
             elif (level) == "operador":
-                if estado == "desactivado":
+                if estado == "desactivado":  # creacion de condicional para cambiar de pagina segun este activado o descativado el ususario
                  return render.index()
                 else:
                  return web.seeother("/bienvenida_operador")
