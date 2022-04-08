@@ -1,6 +1,6 @@
 $def with(user)
 
-<form  >
+<form>
     <div class="form-group">
         <label for="name">Nombre:</label>
         <input type="text" readonly  class="form-control" id="nombre" value=" $user.val().get('nombre')" >
@@ -19,6 +19,11 @@ $def with(user)
     <div class="form-group">
         <label for="name">Level:</label>
         <input type="text" readonly class="form-control" id="level"  value="$user.val().get('level')" >
+    </div>
+
+    <div class="form-group">
+        <label for="estado">Estado:</label>
+        <input type="text" readonly class="form-control" id="estado"  value="$user.val().get('estado')" >
     </div>
 
 </form>

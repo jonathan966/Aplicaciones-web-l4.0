@@ -27,10 +27,12 @@ class On_off_count_admin:
        formulario1 = web.input() # se crea una variable formulario para recibir los datos del registrar.html
        print(formulario1)
        nombre = formulario1.nombre # se crea la variable nombre donde se guardara los datos ingresados en el formulario
+       level = formulario1.level
        email = formulario1.email
        estado = formulario1.estado
        data = { "nombre": nombre,  
         "email" : email,
+        "level" : level,
         "estado" : estado
        }
        results = db.child("usuario_creado").child(localId).update(data)
